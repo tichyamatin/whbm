@@ -5,7 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 
 def bmfilter(testinput):
-    #>>>FILTERING OUTPUT
+    #>>>FILTERING INPUT
     testinput = testinput.replace('[','')
     testinput = testinput.replace(']','')
     testinput = testinput.replace('(','')
