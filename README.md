@@ -1,1 +1,1 @@
-Wormhole Bookmark Graph Tool for OMNI
+Wormhole Bookmark Graph Tool for OLMI
