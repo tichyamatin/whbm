@@ -1,3 +1,4 @@
 pyvis
 flask
 beautifulsoup4
+Flask-Session

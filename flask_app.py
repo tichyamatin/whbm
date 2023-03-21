@@ -1,8 +1,9 @@
 import re,os,uuid
 from pyvis.network import Network
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, session
 import requests
 from bs4 import BeautifulSoup
+from flask_session import Session
 
 def bmfilter(testinput):
     #>>>FILTERING INPUT
@@ -98,3 +99,6 @@ def bmuploadpost():
 if __name__ == '__main__':
 
     app.run(debug=False)
+    app.config["SESSION_PERMANENT"] = False
+    app.config["SESSION_TYPE"] = "filesystem"
+    Session(app)
