@@ -1,0 +1,72 @@
+
+A-1 Eust &gt; J120256	Coordinate	16	Eust	Lorundio	Metropolis	2023.03.12 08:48	-	Acetai Agittain
+A-1 J120256 &gt; Malpara	Coordinate	No gate-to-gate route	J120256	A-C00014	A-R00002	2023.03.12 09:18	-	Acetai Agittain
+A-1 J120256 &lt; Eust	Coordinate	No gate-to-gate route	J120256	A-C00014	A-R00002	2023.03.12 09:02	-	Acetai Agittain
+A-1 Malpara &lt; J120256	Coordinate	39	Malpara	Ichida	The Bleak Lands	2023.03.12 09:19	-	Acetai Agittain
+A-2 Eust &gt; Mattere	Coordinate	16	Eust	Lorundio	Metropolis	2023.03.12 08:49	-	Acetai Agittain
+A-2 Mattere &lt; Eust	Coordinate	11	Mattere	Odilis	Everyshore	2023.03.12 08:51	-	Acetai Agittain
+A-3 Dead End &gt; J102222	Coordinate	13	Dead End	EVE	Genesis	2023.03.12 10:06	-	Acetai Agittain
+A-3 J101346 &gt; J102222	Coordinate	No gate-to-gate route	J101346	B-C00048	B-R00006	2023.03.12 10:14	-	Acetai Agittain
+A-3 J101346 &gt; Tama	Coordinate	No gate-to-gate route	J101346	B-C00048	B-R00006	2023.03.12 10:16	-	Acetai Agittain
+A-3 J102222 &gt; Dead End	Coordinate	No gate-to-gate route	J102222	B-C00046	B-R00006	2023.03.12 09:54	-	Acetai Agittain
+A-3 J102222 &gt; J101346	Coordinate	No gate-to-gate route	J102222	B-C00046	B-R00006	2023.03.12 09:54	-	Acetai Agittain
+A-3 J102222 &gt; Ronne	Coordinate	No gate-to-gate route	J102222	B-C00046	B-R00006	2023.03.12 09:51	-	Acetai Agittain
+A-3 Ronne &gt; J102222	Coordinate	37	Ronne	Ichida	The Bleak Lands	2023.03.12 09:50	-	Acetai Agittain
+A-3 Tama &gt; J101346	Coordinate	19	Tama	Isoma	The Citadel	2023.03.12 10:18	-	Acetai Agittain
+A-4 J013123 &gt; Junsen	Coordinate	No gate-to-gate route	J013123	B-C00326	B-R00004	2023.03.12 10:41	-	Acetai Agittain
+A-4 Junsen &gt; J013123	Coordinate	37	Junsen	Ichida	The Bleak Lands	2023.03.12 10:40	-	Acetai Agittain
+A-5 Hakshma &gt; Sakhti	Coordinate	37	Hakshma	Daredan	Devoid	2023.03.12 10:46	-	Acetai Agittain
+A-5 Sakhti &gt; Hakshma	Coordinate	49	Sakhti	Mazake	Domain	2023.03.12 10:47	-	Acetai Agittain
+A-6 Aldali &gt; Milal	Coordinate	47	Aldali	Mazake	Domain	2023.03.12 11:14	-	Acetai Agittain
+A-6 Anohel &gt; Milal	Coordinate	68	Anohel	Maal	Aridia	2023.03.12 11:33	-	Acetai Agittain
+A-6 Milai &gt; Aldali	Coordinate	48	Milal	Armi	Domain	2023.03.12 11:16	-	Acetai Agittain
+A-6 Milal &gt; Anohel	Coordinate	48	Milal	Armi	Domain	2023.03.12 11:28	-	Acetai Agittain
+A-6 Milal &gt; Mya	Coordinate	48	Milal	Armi	Domain	2023.03.12 11:28	-	Acetai Agittain
+A-6 Mya &gt; Milal	Coordinate	15	Mya	Chasnaye	Everyshore	2023.03.12 11:30	-	Acetai Agittain
+A-7 Dodenvale &gt; Keri	Coordinate	14	Dodenvale	Lolbrerie	Sinq Laison	2023.03.13 08:21	-	Acetai Agittain
+A-7 Hagilur &gt; Keri	Coordinate	15	Hagilur	Barvigrard	Metropolis	2023.03.13 09:26	-	Acetai Agittain
+A-7 Harroule &gt; Keri	Coordinate	13	Harroule	Viriette	Placid	2023.03.13 09:27	-	Acetai Agittain
+A-7 Keri &gt; Dodenvale	Coordinate	9	Keri	Makh	Genesis	2023.03.13 09:02	-	Acetai Agittain
+A-7 Keri &gt; Hagilur	Coordinate	9	Keri	Makh	Genesis	2023.03.13 09:06	-	Acetai Agittain
+A-7 Keri &gt; Harroule	Coordinate	9	Keri	Makh	Genesis	2023.03.13 09:05	-	Acetai Agittain
+A-8 Heorah &gt; J152353 M	Coordinate	1	Heorah	Fabas	Genesis	2023.03.13 12:16	-	Acetai Agittain
+A-8 J152353 &gt; Nibainkier M	Coordinate	No gate-to-gate route	J152353	A-C00016	A-R00003	2023.03.13 12:20	-	Acetai Agittain
+A-8 J152353 &lt; Heorah M	Coordinate	No gate-to-gate route	J152353	A-C00016	A-R00003	2023.03.13 12:17	-	Acetai Agittain
+A-8 Nibainkier &gt; J152353 M	Coordinate	45	Nibainkier	Nimedaz	Kor-Azor	2023.03.13 12:51	-	Acetai Agittain
+
+R-1 Ebasez &gt; ?C1 UZI M	Coordinate	0	Ebasez	Fabas	Genesis	2023.03.19 20:36	2023.03.21 20:36	mnehorosho
+R-2 Ebasez &gt; J153532 NAL &lt;4h	Coordinate	0	Ebasez	Fabas	Genesis	2023.03.19 20:37	2023.03.21 20:37	mnehorosho
+R-2 J102504 &gt; J153532	Coordinate	No gate-to-gate route	J102504	B-C00051	B-R00006	2023.03.19 20:41	2023.03.21 20:41	mnehorosho
+R-2 J153532 &gt; Ebasez	Coordinate	No gate-to-gate route	J153532	B-C00023	B-R00004	2023.03.19 20:38	2023.03.21 20:38	mnehorosho
+R-2 J153532 &gt; J102504 WSZ	Coordinate	No gate-to-gate route	J153532	B-C00023	B-R00004	2023.03.19 20:41	2023.03.21 20:41	mnehorosho
+R-2 J153532 &gt; J155722 LQO	Coordinate	No gate-to-gate route	J153532	B-C00023	B-R00004	2023.03.19 20:40	2023.03.21 20:40	mnehorosho
+R-2 J155722 &gt; J153532	Coordinate	No gate-to-gate route	J155722	C-C00141	C-R00014	2023.03.19 20:56	2023.03.21 20:56	mnehorosho
+R-3 J140121 &gt; ?LS EMQ	Coordinate	No gate-to-gate route	J140121	A-C00318	A-R00001	2023.03.19 22:04	2023.03.21 22:04	mnehorosho
+R-3 J140121 &gt; J162159	Coordinate	No gate-to-gate route	J140121	A-C00318	A-R00001	2023.03.19 21:55	2023.03.21 21:55	mnehorosho
+R-3 J140121 &gt; J215736 TAD	Coordinate	No gate-to-gate route	J140121	A-C00318	A-R00001	2023.03.19 22:06	2023.03.21 22:06	mnehorosho
+R-3 J152825 &gt; J172159 JNV	Coordinate	No gate-to-gate route	J152825	B-C00043	B-R00006	2023.03.19 21:19	2023.03.21 21:19	mnehorosho
+R-3 J152825 &gt; J233534 DMC	Coordinate	No gate-to-gate route	J152825	B-C00043	B-R00006	2023.03.19 21:20	2023.03.21 21:20	mnehorosho
+R-3 J152825 &gt; Karan FWJ	Coordinate	No gate-to-gate route	J152825	B-C00043	B-R00006	2023.03.19 21:21	2023.03.21 21:21	mnehorosho
+R-3 J152825 &gt; Pamah	Coordinate	No gate-to-gate route	J152825	B-C00043	B-R00006	2023.03.19 21:16	2023.03.21 21:16	mnehorosho
+R-3 J162159 &gt; J140121 HCA	Coordinate	No gate-to-gate route	J162159	B-C00064	B-R00008	2023.03.19 21:45	2023.03.21 21:45	mnehorosho
+R-3 J162159 &gt; J152825	Coordinate	No gate-to-gate route	J162159	B-C00064	B-R00008	2023.03.19 21:33	2023.03.21 21:33	mnehorosho
+R-3 J215736 &gt; J140121	Coordinate	No gate-to-gate route	J215736	B-C00039	B-R00005	2023.03.19 22:07	2023.03.21 22:07	mnehorosho
+R-3 J233534 &gt; ?C3 LOG	Coordinate	No gate-to-gate route	J233534	B-C00025	B-R00004	2023.03.19 21:27	2023.03.21 21:27	mnehorosho
+R-3 J233534 &gt; ?NS GIP	Coordinate	No gate-to-gate route	J233534	B-C00025	B-R00004	2023.03.19 21:28	2023.03.21 21:28	mnehorosho
+R-3 J233534 &gt; J152825	Coordinate	No gate-to-gate route	J233534	B-C00025	B-R00004	2023.03.19 21:24	2023.03.21 21:24	mnehorosho
+R-3 Karan &gt; J152825	Coordinate	71	Karan	Selonat	Aridia	2023.03.19 21:22	2023.03.21 21:22	mnehorosho
+R-3 Pamah &gt; J152825 IUD	Coordinate	12	Pamah	Ubar	Genesis	2023.03.19 21:14	2023.03.21 21:14	mnehorosho
+R-4 Ebasez &gt; J154449 TYU	Coordinate	0	Ebasez	Fabas	Genesis	2023.03.19 22:33	2023.03.21 22:33	mnehorosho
+R-4 J154449 &gt; Ebasez	Coordinate	No gate-to-gate route	J154449	C-C00137	C-R00014	2023.03.19 22:33	2023.03.21 22:33	mnehorosho
+R-4 J154449 &gt; K-IYNW	Coordinate	No gate-to-gate route	J154449	C-C00137	C-R00014	2023.03.19 22:47	2023.03.21 22:47	mnehorosho
+R-5 Doza &gt; ?C1 SVL M	Coordinate	2	Doza	Fabas	Genesis	2023.03.19 22:56	2023.03.21 22:56	mnehorosho
+R-6 J104008 &gt; J104008	Coordinate	No gate-to-gate route	J114612	C-C00136	C-R00014	2023.03.20 00:45	2023.03.22 00:45	mnehorosho
+R-6 J114612 &gt; J141832 LQX &lt;4h	Coordinate	No gate-to-gate route	J114612	C-C00136	C-R00014	2023.03.20 01:09	2023.03.22 01:09	mnehorosho
+R-6 J135155 &gt; J205004	Coordinate	No gate-to-gate route	J135155	B-C00043	B-R00006	2023.03.19 23:58	2023.03.21 23:58	mnehorosho
+R-6 J141832 &gt; J114612	Coordinate	No gate-to-gate route	J141832	C-C00104	C-R00011	2023.03.20 01:09	2023.03.22 01:09	mnehorosho
+R-6 J154515 &gt; ?C2 GAN	Coordinate	No gate-to-gate route	J154515	B-C00036	B-R00005	2023.03.20 00:13	2023.03.22 00:13	mnehorosho
+R-6 J154515 &gt; J155403	Coordinate	No gate-to-gate route	J154515	B-C00036	B-R00005	2023.03.20 00:09	2023.03.22 00:09	mnehorosho
+R-6 J155403 &gt; ?C2 NPN	Coordinate	No gate-to-gate route	J155403	C-C00139	C-R00014	2023.03.20 00:09	2023.03.22 00:09	mnehorosho
+R-6 J155403 &gt; J205004	Coordinate	No gate-to-gate route	J155403	C-C00139	C-R00014	2023.03.20 00:06	2023.03.22 00:06	mnehorosho
+R-6 J205004 &gt; ?C2 ZZE &lt;4h	Coordinate	No gate-to-gate route	J205004	A-C00011	A-R00002	2023.03.19 23:56	2023.03.21 23:56	mnehorosho
+R-6 J205004 &gt; J155403 XEB	Coordinate	No gate-to-gate route	J205004	A-C00011	A-R00002	2023.03.19 23:52	2023.03.21 23:52	mnehorosho
