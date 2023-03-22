@@ -1,7 +1,6 @@
 import re,os,uuid
 from pyvis.network import Network
 from flask import Flask, render_template, request, url_for, redirect, session
-import requests
 from bs4 import BeautifulSoup
 from flask_session import Session
 
@@ -54,6 +53,55 @@ def bmfilter(testinput):
     net.save_graph('./templates/test.html')
     #clearfile()
 
+def bmfilterprivate(testinput):
+    #>>>FILTERING INPUT
+    testinput = testinput.replace('[','')
+    testinput = testinput.replace(']','')
+    testinput = testinput.replace('(','')
+    testinput = testinput.replace(')','')
+    testinput = testinput.replace('  ',' ')
+    print(len(testinput))
+
+    searchObj = re.findall( r'\w\-\d\s(.*?)\s*(&gt;|&lt;|<|>)\s*(\w*)\s*(Coordinate|(.*?)Coordinate)', testinput)
+
+    #>>> CREATING LIST AND POPULATIN WITH FILTERED DATA
+    bmids = []
+    bmlabels = []
+    bmconnections = []
+
+    for bm in searchObj:
+        bmids.append(bm[0])
+        bmids.append(bm[2])
+
+        bmlabels.append(str(bm[0]))
+        bmlabels.append(str(bm[2]))
+
+        bm_con = (bm[0],bm[2])
+        bmconnections.append(bm_con)
+
+    print(bmids)
+    print(type(bmids))
+
+    #>>> GRAPH CREATION
+    net = Network(
+        notebook=True,
+        cdn_resources="remote",
+        bgcolor="#0C011D",
+        font_color="#00B4FF",
+        height="750px",
+        width="100%",
+    )
+
+    net.add_nodes(bmids,label=bmlabels)
+    net.add_edges(bmconnections)
+    net.repulsion(node_distance=80, spring_length=40)
+
+    id = uuid.uuid1()
+    idnode = str(id.node)
+
+    net.save_graph('./templates/test'+str(session['whbm_session'])+'.html')
+    #clearfile()
+
 
 def clearfile():
 
@@ -81,32 +129,53 @@ def clearfile():
 app = Flask(__name__)
 
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+app.config["SESSION_COOKIE_HTTPONLY"] = False  # only for test
 
-@app.route('/templates/test.html')
+@app.route('/templates/<path:filename>')
 def bmtest():
-    return render_template('test.html')
+    if not session.get("whbm_session"):
+        filename = 'test.html'
+        return render_template(filename)
+    if session.get("whbm_session"):
+        print('Session deteced')
+
+
+@app.route('/templates/<path:filename>')
+def bmtestprivate(filename):
+    return send_from_directory('templates', filename)
+
+'''
+@app.route('/show/<filename>')
+def uploaded_file(filename):
+    filename = 'http://127.0.0.1:5000/uploads/' + filename
+    return render_template('template.html', filename=filename)
+
+@app.route('/uploads/<filename>')
+def send_file(filename):
+    return send_from_directory(UPLOAD_FOLDER, filename)
+'''
 
 @app.route('/')
 def bmupload():
     if not session.get("whbm_session"):
         print('No session cookie')
+        session['whbm_session'] = '1'
     else:
-        print(session["whbm_session"])
+        print(session['whbm_session'])
 
-    return render_template('bmupload.html')
+    return render_template('bmuploadpriv.html')
 
 @app.route('/', methods=['POST'])
 def bmuploadpost():
-    session["whbm_session"] = '1'
     testinput = request.form['textbox']
     bmfilter(testinput)
-    return render_template('bmupload.html')
+    return render_template('bmuploadpriv.html')
 
 if __name__ == '__main__':
 
 
-    app.config["SESSION_PERMANENT"] = False
-    app.config["SESSION_TYPE"] = "filesystem"
-    app.config["SESSION_COOKIE_HTTPONLY"] = False #For test only
     Session(app)
+
     app.run(debug=False)

@@ -1,0 +1,93 @@
+<html>
+<head>
+
+<style>
+body {
+  background-color: #0C011D;
+  color: #00B4FF;
+  font-size: 14px;
+}
+
+.textbox {
+	background: linear-gradient(#1F2124, #27292C);
+	border: 1px solid #000;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+	border-radius: 3px;
+	color: #FFF;
+	font-size: 14px;
+    width: 500px;
+    height: 300px;
+}
+.textbox:focus {
+	box-shadow: inset 0 0 2px #000;
+	background: #494D54;
+	border-color: #51CBEE;
+	outline: none;
+}
+
+.button {
+  background-color: black;
+  color: #00B4FF;
+  border: 2px solid #00B4FF;
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  background-color: #00B4FF;
+  color: white;
+}
+table, th, td {
+  border:0px;
+}
+
+
+
+</style>
+
+
+</head>
+<body>
+
+
+<body bgcolor="#0C011D">
+<table width=100% height=100%>
+    <tr>
+        <td width=40% height=100%>
+
+<p><b>Wormhole Bookmarks Graph Tool</b></p></br>
+
+<form method="POST">
+    <table>
+    <tr><td>
+    <textarea  class="textbox" id="textbox" name="textbox"></textarea>
+        </td>
+    </tr>
+        <tr align="right">
+            <td align="right">
+    <input class="button" id="button" type="submit" value="Submit">
+            </td>
+    </tr>
+    </table>
+</form>
+
+</br></br></br>
+<p>Supported BM pattern:</p><br>
+A-1 Eust &gt; J120256	Coordinate	16	Eust	Lorundio	Metropolis	2023.03.12 08:48	-	XXX</br>
+A-1 J120256 &gt; Malpara	Coordinate	No gate-to-gate route	J120256	A-C00014	A-R00002	2023.03.12 00:00	-	XXX</br>
+A-1 J120256 &lt; Eust	Coordinate	No gate-to-gate route	J120256	A-C00014	A-R00002	2023.03.12 00:00	-	XXX</br>
+A-1 Malpara &lt; J120256	Coordinate	39	Malpara	Ichida	The Bleak Lands	2023.03.12 00:00	-	XXX</br>
+A-2 Eust &gt; Mattere	Coordinate	16	Eust	Lorundio	Metropolis	2023.03.12 00:00	-	XXX</br>
+A-2 Mattere &lt; Eust	Coordinate	11	Mattere	Odilis	Everyshore	2023.03.12 00:00	-	XXX</br>
+<br>
+</td>
+
+    {% if session['whbm_session'] %}
+        <td width=* height=100%><iframe src="test123" height=100% width=100% frameBorder="0"></iframe></td>
+    {% else %}
+        <td width=* height=100%><iframe src="{{ url_for('bmtest') }}" height=100% width=100% frameBorder="0"></iframe></td>
+          {% endif %}
+    </tr>
+</table>
+
+</body>
+</html>
