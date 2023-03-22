@@ -88,17 +88,25 @@ def bmtest():
 
 @app.route('/')
 def bmupload():
+    if not session.get("whbm_session"):
+        print('No session cookie')
+    else:
+        print(session["whbm_session"])
+
     return render_template('bmupload.html')
 
 @app.route('/', methods=['POST'])
 def bmuploadpost():
+    session["whbm_session"] = '1'
     testinput = request.form['textbox']
     bmfilter(testinput)
     return render_template('bmupload.html')
 
 if __name__ == '__main__':
 
-    app.run(debug=False)
+
     app.config["SESSION_PERMANENT"] = False
     app.config["SESSION_TYPE"] = "filesystem"
+    app.config["SESSION_COOKIE_HTTPONLY"] = False #For test only
     Session(app)
+    app.run(debug=False)
