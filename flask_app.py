@@ -99,7 +99,7 @@ def bmfilterprivate(testinput):
     id = uuid.uuid1()
     idnode = str(id.node)
 
-    net.save_graph('./templates/test'+str(session['whbm_session'])+'.html')
+    net.save_graph('./templates/'+str(session['whbm_session'])+'.html')
     #clearfile()
 
 
@@ -133,18 +133,24 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 app.config["SESSION_COOKIE_HTTPONLY"] = False  # only for test
 
-@app.route('/templates/<path:filename>')
-def bmtest():
+@app.route('/templates/<filename>')
+def bmtest(filename):
     if not session.get("whbm_session"):
         filename = 'test.html'
         return render_template(filename)
     if session.get("whbm_session"):
         print('Session deteced')
+        filename = '/templates/' + session.get("whbm_session") +'.html'
+        #print(str(filename))
+        templ = session.get("whbm_session")+'.html'
+        return render_template(templ,filename=filename)
 
 
-@app.route('/templates/<path:filename>')
+@app.route('/templates/<filename>')
 def bmtestprivate(filename):
+    print('enteredd send from')
     return send_from_directory('templates', filename)
+
 
 '''
 @app.route('/show/<filename>')
@@ -161,7 +167,7 @@ def send_file(filename):
 def bmupload():
     if not session.get("whbm_session"):
         print('No session cookie')
-        session['whbm_session'] = '1'
+        session['whbm_session'] = '123'
     else:
         print(session['whbm_session'])
 
@@ -170,7 +176,7 @@ def bmupload():
 @app.route('/', methods=['POST'])
 def bmuploadpost():
     testinput = request.form['textbox']
-    bmfilter(testinput)
+    bmfilterprivate(testinput)
     return render_template('bmuploadpriv.html')
 
 if __name__ == '__main__':

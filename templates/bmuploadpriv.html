@@ -82,9 +82,9 @@ A-2 Mattere &lt; Eust	Coordinate	11	Mattere	Odilis	Everyshore	2023.03.12 00:00	-
 </td>
 
     {% if session['whbm_session'] %}
-        <td width=* height=100%><iframe src="test123" height=100% width=100% frameBorder="0"></iframe></td>
+        <td width=* height=100%><iframe src="{{ url_for('bmtestprivate',filename=session['whbm_session']) }}" height=100% width=100% frameBorder="0"></iframe></td>
     {% else %}
-        <td width=* height=100%><iframe src="{{ url_for('bmtest') }}" height=100% width=100% frameBorder="0"></iframe></td>
+        <td width=* height=100%><iframe src="blank" height=100% width=100% frameBorder="0"></iframe></td>
           {% endif %}
     </tr>
 </table>
