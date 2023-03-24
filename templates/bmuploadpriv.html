@@ -1,6 +1,5 @@
 <html>
 <head>
-
 <style>
 body {
   background-color: #0C011D;
@@ -39,20 +38,27 @@ body {
 table, th, td {
   border:0px;
 }
-
-
-
 </style>
-
-
 </head>
-<body>
-
-
 <body bgcolor="#0C011D">
 <table width=100% height=100%>
     <tr>
         <td width=40% height=100%>
+{% if privategraph == True %}
+<form action="/"  method="get">
+    You are using <b><font color="#AAFF00">private</font></b> graph view | switch to
+    <button type="submit" class="button">PUBLIC</button>
+    <input type="hidden" name="priv" value="PUBLIC">
+</form>
+{% endif %}
+{% if privategraph == False %}
+<form action="/"  method="get">
+    You are using <b><font color="yellow">public</font></b> graph view | switch to
+    <button type="submit" class="button">PRIVATE</button>
+    <input type="hidden" name="priv" value="PRIVATE">
+</form>
+{% endif %}
+
 
 <p><b>Wormhole Bookmarks Graph Tool</b></p></br>
 
@@ -81,10 +87,10 @@ A-2 Mattere &lt; Eust	Coordinate	11	Mattere	Odilis	Everyshore	2023.03.12 00:00	-
 <br>
 </td>
 
-    {% if session['whbm_session'] %}
+    {% if privategraph == True %}
         <td width=* height=100%><iframe src="{{ url_for('bmtestprivate',filename=session['whbm_session']) }}" height=100% width=100% frameBorder="0"></iframe></td>
     {% else %}
-        <td width=* height=100%><iframe src="blank" height=100% width=100% frameBorder="0"></iframe></td>
+        <td width=* height=100%><iframe src="{{ url_for('bmtestprivate',filename='test.html')}}" height=100% width=100% frameBorder="0"></iframe></td>
           {% endif %}
     </tr>
 </table>

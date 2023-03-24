@@ -1,8 +1,12 @@
-import re,os,uuid
+import re, os, uuid, time
 from pyvis.network import Network
 from flask import Flask, render_template, request, url_for, redirect, session
 from bs4 import BeautifulSoup
 from flask_session import Session
+
+
+def timestamp():
+    return round(time.time() * 1000)
 
 def bmfilter(testinput):
     #>>>FILTERING INPUT
@@ -125,63 +129,91 @@ def clearfile():
     with open(htmlfile, 'w') as f:
         f.writelines(lines)
 
-
 app = Flask(__name__)
-
 app.config["TEMPLATES_AUTO_RELOAD"] = True
-app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_PERMANENT"] = True
 app.config["SESSION_TYPE"] = "filesystem"
 app.config["SESSION_COOKIE_HTTPONLY"] = False  # only for test
 
+privategraph = True
+
+
+
+
+
 @app.route('/templates/<filename>')
 def bmtest(filename):
-    if not session.get("whbm_session"):
-        filename = 'test.html'
-        return render_template(filename)
-    if session.get("whbm_session"):
-        print('Session deteced')
-        filename = '/templates/' + session.get("whbm_session") +'.html'
-        #print(str(filename))
-        templ = session.get("whbm_session")+'.html'
+    global privategraph
+
+    if not privategraph:
+        filename = '/templates/test.html'
+        templ = 'test.html'
         return render_template(templ,filename=filename)
 
+    if privategraph:
+        filename = '/templates/' + str(session.get("whbm_session")) +'.html'
+        templ = str(session.get("whbm_session"))+'.html'
+        return render_template(templ, filename=filename)
 
 @app.route('/templates/<filename>')
 def bmtestprivate(filename):
-    print('enteredd send from')
     return send_from_directory('templates', filename)
 
 
-'''
-@app.route('/show/<filename>')
-def uploaded_file(filename):
-    filename = 'http://127.0.0.1:5000/uploads/' + filename
-    return render_template('template.html', filename=filename)
-
-@app.route('/uploads/<filename>')
-def send_file(filename):
-    return send_from_directory(UPLOAD_FOLDER, filename)
-'''
-
 @app.route('/')
 def bmupload():
+    global privategraph
+
     if not session.get("whbm_session"):
         print('No session cookie')
-        session['whbm_session'] = '123'
+        session['whbm_session'] = timestamp()
+        print(session['whbm_session'])
     else:
         print(session['whbm_session'])
 
-    return render_template('bmuploadpriv.html')
+    if request.args.get('priv') == 'PUBLIC':
+        print('changing to false')
+        privategraph = False
+    if request.args.get('priv') == 'PRIVATE':
+        privategraph = True
+        print('changing to true')
+
+
+
+    if privategraph:
+        return render_template('bmuploadpriv.html', privategraph=privategraph)
+    else:
+        return render_template('bmuploadpriv.html', privategraph=privategraph)
 
 @app.route('/', methods=['POST'])
 def bmuploadpost():
+    global privategraph
+
     testinput = request.form['textbox']
-    bmfilterprivate(testinput)
-    return render_template('bmuploadpriv.html')
+
+    if privategraph:
+        bmfilterprivate(testinput)
+        return render_template('bmuploadpriv.html', privategraph=privategraph)
+    else:
+        bmfilter(testinput)
+        return render_template('bmuploadpriv.html', privategraph=privategraph)
+
+'''
+@app.route('/changeprivacy', methods=['POST','GET'])
+def changeprivacy():
+    global privategraph
+
+    if request.method == 'GET':
+        if request.form['button_priv'] == 'PUBLIC':
+            privategraph = False
+        if request.form['button_priv'] == 'PRIVATE':
+            privategraph = True
+
+    return render_template('bmuploadpriv.html', privategraph=privategraph)
+'''
+
 
 if __name__ == '__main__':
 
-
     Session(app)
-
-    app.run(debug=False)
+    app.run(debug=True)

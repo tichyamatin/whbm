@@ -282,8 +282,8 @@ function highlightFilter(filter) {
                   
 
                   // parsing and collecting nodes and edges from the python
-                  nodes = new vis.DataSet([{"color": "#97c2fc", "font": {"color": "#00B4FF"}, "id": "Eust", "label": "Eust", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "#00B4FF"}, "id": "J120256", "label": "J120256", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "#00B4FF"}, "id": "Malpara", "label": "Malpara", "shape": "dot"}]);
-                  edges = new vis.DataSet([{"from": "Eust", "to": "J120256"}, {"from": "J120256", "to": "Malpara"}]);
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "font": {"color": "#00B4FF"}, "id": "Eust", "label": "Eust", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "#00B4FF"}, "id": "J120256", "label": "J120256", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "#00B4FF"}, "id": "Malpara", "label": "Malpara", "shape": "dot"}, {"color": "#97c2fc", "font": {"color": "#00B4FF"}, "id": "Mattere", "label": "Mattere", "shape": "dot"}]);
+                  edges = new vis.DataSet([{"from": "Eust", "to": "J120256"}, {"from": "J120256", "to": "Malpara"}, {"from": "Eust", "to": "Mattere"}]);
 
                   nodeColors = {};
                   allNodes = nodes.get({ returnType: "Object" });
