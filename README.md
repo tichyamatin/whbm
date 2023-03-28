@@ -1,7 +1,3 @@
----
-description: Wormhole Bookmark Graph Tool for OLMI
----
-
 # ℹ README
 
 
