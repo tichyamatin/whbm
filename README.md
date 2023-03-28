@@ -1,3 +1,10 @@
-Wormhole Bookmark Graph Tool for OLMI
+---
+description: Wormhole Bookmark Graph Tool for OLMI
+---
 
-There will be more description here.. ;)
+# ℹ README
+
+
+
+This tool was created to visualise in game EVE Wormhole Bookmarks as graphs.
+
