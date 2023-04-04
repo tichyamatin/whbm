@@ -106,7 +106,6 @@ def bmfilterprivate(testinput):
     net.save_graph('./templates/'+str(session['whbm_session'])+'.html')
     #clearfile()
 
-
 def clearfile():
 
     htmlfile = "./templates/test.html"
@@ -130,16 +129,12 @@ def clearfile():
         f.writelines(lines)
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'A&*SD^*(A&SD^A*&SD^*A&SD^*'
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["SESSION_PERMANENT"] = True
 app.config["SESSION_TYPE"] = "filesystem"
-app.config["SESSION_COOKIE_HTTPONLY"] = False  # only for test
 
 privategraph = True
-
-
-
-
 
 @app.route('/templates/<filename>')
 def bmtest(filename):
@@ -158,7 +153,6 @@ def bmtest(filename):
 @app.route('/templates/<filename>')
 def bmtestprivate(filename):
     return send_from_directory('templates', filename)
-
 
 @app.route('/')
 def bmupload():
@@ -198,22 +192,8 @@ def bmuploadpost():
         bmfilter(testinput)
         return render_template('bmuploadpriv.html', privategraph=privategraph)
 
-'''
-@app.route('/changeprivacy', methods=['POST','GET'])
-def changeprivacy():
-    global privategraph
-
-    if request.method == 'GET':
-        if request.form['button_priv'] == 'PUBLIC':
-            privategraph = False
-        if request.form['button_priv'] == 'PRIVATE':
-            privategraph = True
-
-    return render_template('bmuploadpriv.html', privategraph=privategraph)
-'''
-
 
 if __name__ == '__main__':
 
     Session(app)
-    app.run(debug=True)
+    app.run(debug=False)
