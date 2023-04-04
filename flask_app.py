@@ -4,12 +4,10 @@ from flask import Flask, render_template, request, url_for, redirect, session
 from bs4 import BeautifulSoup
 from flask_session import Session
 
-
-
 redirecturi = 'http%3A%2F%2Flocalhost%3A5000%2Fcallback%2F'   #TEST http://localhost:5000/callback/
 #redirecturi = 'https%3A%2F%2Fwhbm.pythonanywhere.com%2Fcallback%2F'     #PROD https://whbm.pythonanywhere.com/callback/
-clientid = 'd202150a31644926a06d8d669a6939df'
-secretkey = 'X6efdNZ9fVhCTwz8DQNEynYZb9k0yhmGt9en0sol'
+clientid = '##'
+secretkey = '##'
 responsetyp = 'code'
 scope = 'publicData'
 state = 'asd'
@@ -177,7 +175,6 @@ def bmupload():
     global privategraph
     if not session.get("whbm_session"):
         print('No session cookie')
-        #session['whbm_session'] = timestamp()
         return redirect(url_for('eveoauth'))
     else:
         print(session['whbm_session'])
@@ -217,39 +214,30 @@ def callback():
     #1 - Get code and state from callback return
     code = request.args.get('code')
     state = request.args.get('state')
-    #print('code: ' + code)
-    #print('state: ' + state)
 
     #2 - Get JWT Auth Token
     postpayload = {"grant_type":"authorization_code", "code":code}
     x = requests.post('https://login.eveonline.com/oauth/token', json=postpayload, headers={"Content-Type": "application/json", "Authorization": clientsecretpair})
     token = x.json()
     authtoken = str(token["access_token"])
-    #print(token)
-    #print(x.status_code)
-    #print("access token:" + authtoken)
 
     #3 - Authenticate
     z = requests.get('https://login.eveonline.com/oauth/verify', headers={"Content-Type": "application/json", "Authorization": "Bearer " + authtoken})
-    #print(z.text)
 
     #4 - Send Authenticated request
-    #y = requests.get('https://esi.evetech.net/latest/characters/92938956/blueprints/', headers={"Content-Type": "application/json", "Authorization": "Bearer " + authtoken})
     y = requests.get('https://esi.evetech.net/latest/characters/92938956/', headers={"Content-Type": "application/json", "Authorization": "Bearer " + authtoken})
     resp = y.json()
 
-    #print(resp["name"])
     corpid = resp["corporation_id"]
-    #print(corpid)
 
     if corpid == 98719586:
         session['whbm_session'] = timestamp()
         return redirect(url_for('bmupload'))
-        #return 'You are a member of Oak Lane'
+
     else:
-        return 'You are not a member'
+        return 'You are not a member.'
 
 if __name__ == '__main__':
 
     Session(app)
-    app.run(debug=True)
+    app.run(debug=False)
