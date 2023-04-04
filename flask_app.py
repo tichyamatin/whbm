@@ -1,9 +1,22 @@
-import re, os, uuid, time
+import re, os, uuid, time, base64, requests
 from pyvis.network import Network
 from flask import Flask, render_template, request, url_for, redirect, session
 from bs4 import BeautifulSoup
 from flask_session import Session
 
+redirecturi = 'http%3A%2F%2Flocalhost%3A5000%2Fcallback%2F'   #TEST http://localhost:5000/callback/
+#redirecturi = 'https%3A%2F%2Fwhbm.pythonanywhere.com%2Fcallback%2F'     #PROD https://whbm.pythonanywhere.com/callback/
+clientid = '##'
+secretkey = '##'
+responsetyp = 'code'
+scope = 'publicData'
+state = 'asd'
+
+authredirurl = 'https://login.eveonline.com/oauth/authorize?response_type=' + responsetyp + '&redirect_uri=' + redirecturi + '&client_id=' + clientid + '&scope=' + scope + '&state=' + state
+
+clientsecretpair = base64.b64encode(bytes(clientid + ':' + secretkey, 'ascii'))
+clientsecretpair = str(clientsecretpair, 'utf-8')
+clientsecretpair = 'Basic ' + clientsecretpair
 
 def timestamp():
     return round(time.time() * 1000)
@@ -106,7 +119,6 @@ def bmfilterprivate(testinput):
     net.save_graph('./templates/'+str(session['whbm_session'])+'.html')
     #clearfile()
 
-
 def clearfile():
 
     htmlfile = "./templates/test.html"
@@ -130,16 +142,12 @@ def clearfile():
         f.writelines(lines)
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'A&*SD^*(A&SD^A*&SD^*A&SD^*'
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["SESSION_PERMANENT"] = True
 app.config["SESSION_TYPE"] = "filesystem"
-app.config["SESSION_COOKIE_HTTPONLY"] = False  # only for test
 
 privategraph = True
-
-
-
-
 
 @app.route('/templates/<filename>')
 def bmtest(filename):
@@ -152,38 +160,37 @@ def bmtest(filename):
 
     if privategraph:
         filename = '/templates/' + str(session.get("whbm_session")) +'.html'
-        templ = str(session.get("whbm_session"))+'.html'
-        return render_template(templ, filename=filename)
+        try:
+            templ = str(session.get("whbm_session"))+'.html'
+            return render_template(templ, filename=filename)
+        except:
+            return render_template('blank.html', filename=filename)
 
 @app.route('/templates/<filename>')
 def bmtestprivate(filename):
     return send_from_directory('templates', filename)
 
-
 @app.route('/')
 def bmupload():
     global privategraph
-
     if not session.get("whbm_session"):
         print('No session cookie')
-        session['whbm_session'] = timestamp()
-        print(session['whbm_session'])
+        return redirect(url_for('eveoauth'))
     else:
         print(session['whbm_session'])
 
-    if request.args.get('priv') == 'PUBLIC':
-        print('changing to false')
-        privategraph = False
-    if request.args.get('priv') == 'PRIVATE':
-        privategraph = True
-        print('changing to true')
+        if request.args.get('priv') == 'PUBLIC':
+            print('changing to false')
+            privategraph = False
+        if request.args.get('priv') == 'PRIVATE':
+            privategraph = True
+            print('changing to true')
 
+        if privategraph:
+            return render_template('bmuploadpriv.html', privategraph=privategraph)
+        else:
+            return render_template('bmuploadpriv.html', privategraph=privategraph)
 
-
-    if privategraph:
-        return render_template('bmuploadpriv.html', privategraph=privategraph)
-    else:
-        return render_template('bmuploadpriv.html', privategraph=privategraph)
 
 @app.route('/', methods=['POST'])
 def bmuploadpost():
@@ -198,22 +205,39 @@ def bmuploadpost():
         bmfilter(testinput)
         return render_template('bmuploadpriv.html', privategraph=privategraph)
 
-'''
-@app.route('/changeprivacy', methods=['POST','GET'])
-def changeprivacy():
-    global privategraph
+@app.route('/oauth/')
+def eveoauth():
+    return redirect(authredirurl, code=302)
 
-    if request.method == 'GET':
-        if request.form['button_priv'] == 'PUBLIC':
-            privategraph = False
-        if request.form['button_priv'] == 'PRIVATE':
-            privategraph = True
+@app.route('/callback/')
+def callback():
+    #1 - Get code and state from callback return
+    code = request.args.get('code')
+    state = request.args.get('state')
 
-    return render_template('bmuploadpriv.html', privategraph=privategraph)
-'''
+    #2 - Get JWT Auth Token
+    postpayload = {"grant_type":"authorization_code", "code":code}
+    x = requests.post('https://login.eveonline.com/oauth/token', json=postpayload, headers={"Content-Type": "application/json", "Authorization": clientsecretpair})
+    token = x.json()
+    authtoken = str(token["access_token"])
 
+    #3 - Authenticate
+    z = requests.get('https://login.eveonline.com/oauth/verify', headers={"Content-Type": "application/json", "Authorization": "Bearer " + authtoken})
+
+    #4 - Send Authenticated request
+    y = requests.get('https://esi.evetech.net/latest/characters/92938956/', headers={"Content-Type": "application/json", "Authorization": "Bearer " + authtoken})
+    resp = y.json()
+
+    corpid = resp["corporation_id"]
+
+    if corpid == 98719586:
+        session['whbm_session'] = timestamp()
+        return redirect(url_for('bmupload'))
+
+    else:
+        return 'You are not a member.'
 
 if __name__ == '__main__':
 
     Session(app)
-    app.run(debug=True)
+    app.run(debug=False)
