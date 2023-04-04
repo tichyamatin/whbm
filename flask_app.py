@@ -1,9 +1,24 @@
-import re, os, uuid, time
+import re, os, uuid, time, base64, requests
 from pyvis.network import Network
 from flask import Flask, render_template, request, url_for, redirect, session
 from bs4 import BeautifulSoup
 from flask_session import Session
 
+
+
+#redirecturi = 'http%3A%2F%2Flocalhost%3A8080%2Fcallback%2F'   #TEST
+redirecturi = 'https%3A%2F%2Fwhbm.pythonanywhere.com%2F'
+clientid = 'd202150a31644926a06d8d669a6939df'
+secretkey = 'X6efdNZ9fVhCTwz8DQNEynYZb9k0yhmGt9en0sol'
+responsetyp = 'code'
+scope = 'esi-characters.read_blueprints.v1'
+state = 'asd'
+
+authredirurl = 'https://login.eveonline.com/oauth/authorize?response_type=' + responsetyp + '&redirect_uri=' + redirecturi + '&client_id=' + clientid + '&scope=' + scope + '&state=' + state
+
+clientsecretpair = base64.b64encode(bytes(clientid + ':' + secretkey, 'ascii'))
+clientsecretpair = str(clientsecretpair, 'utf-8')
+clientsecretpair = 'Basic ' + clientsecretpair
 
 def timestamp():
     return round(time.time() * 1000)
@@ -192,6 +207,45 @@ def bmuploadpost():
         bmfilter(testinput)
         return render_template('bmuploadpriv.html', privategraph=privategraph)
 
+@app.route('/oauth/')
+def eveoauth():
+    return redirect(authredirurl, code=302)
+
+@app.route('/callback/')
+def callback():
+    #1 - Get code and state from callback return
+    code = request.args.get('code')
+    state = request.args.get('state')
+    #print('code: ' + code)
+    #print('state: ' + state)
+
+    #2 - Get JWT Auth Token
+    postpayload = {"grant_type":"authorization_code", "code":code}
+    x = requests.post('https://login.eveonline.com/oauth/token', json=postpayload, headers={"Content-Type": "application/json", "Authorization": clientsecretpair})
+    token = x.json()
+    authtoken = str(token["access_token"])
+    #print(token)
+    #print(x.status_code)
+    #print("access token:" + authtoken)
+
+    #3 - Authenticate
+    z = requests.get('https://login.eveonline.com/oauth/verify', headers={"Content-Type": "application/json", "Authorization": "Bearer " + authtoken})
+    #print(z.text)
+
+    #4 - Send Authenticated request
+    #y = requests.get('https://esi.evetech.net/latest/characters/92938956/blueprints/', headers={"Content-Type": "application/json", "Authorization": "Bearer " + authtoken})
+    y = requests.get('https://esi.evetech.net/latest/characters/92938956/', headers={"Content-Type": "application/json", "Authorization": "Bearer " + authtoken})
+    resp = y.json()
+
+
+    print(resp["name"])
+    corpid = resp["corporation_id"]
+    print(corpid)
+
+    if corpid == 98719586:
+        return 'You are a member of Oak Lane'
+    else:
+        return 'You are not a member'
 
 if __name__ == '__main__':
 
