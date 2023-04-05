@@ -1,16 +1,23 @@
-import re, os, uuid, time, base64, requests
+import re, os, uuid, time, base64, requests, json
 from pyvis.network import Network
 from flask import Flask, render_template, request, url_for, redirect, session
 from bs4 import BeautifulSoup
 from flask_session import Session
 
-redirecturi = 'http%3A%2F%2Flocalhost%3A5000%2Fcallback%2F'   #TEST http://localhost:5000/callback/
+
+#redirecturi = 'http%3A%2F%2Flocalhost%3A5000%2Fcallback%2F'   #TEST http://localhost:5000/callback/
 #redirecturi = 'https%3A%2F%2Fwhbm.pythonanywhere.com%2Fcallback%2F'     #PROD https://whbm.pythonanywhere.com/callback/
-clientid = '##'
-secretkey = '##'
-responsetyp = 'code'
-scope = 'publicData'
-state = 'asd'
+
+with open('./config/whbm.config') as f:
+    config = json.load(f)
+    redirecturi = config['redirecturi']
+    clientid = config['clientid']
+    secretkey = config['secretkey']
+    responsetyp = config['responsetyp']
+    scope = config['scope']
+    state = config['state']
+
+
 
 authredirurl = 'https://login.eveonline.com/oauth/authorize?response_type=' + responsetyp + '&redirect_uri=' + redirecturi + '&client_id=' + clientid + '&scope=' + scope + '&state=' + state
 
@@ -223,11 +230,11 @@ def callback():
 
     #3 - Authenticate
     z = requests.get('https://login.eveonline.com/oauth/verify', headers={"Content-Type": "application/json", "Authorization": "Bearer " + authtoken})
+    resp = z.json()
 
     #4 - Send Authenticated request
-    y = requests.get('https://esi.evetech.net/latest/characters/92938956/', headers={"Content-Type": "application/json", "Authorization": "Bearer " + authtoken})
+    y = requests.get('https://esi.evetech.net/latest/characters/'+str(resp["CharacterID"]), headers={"Content-Type": "application/json", "Authorization": "Bearer " + authtoken})
     resp = y.json()
-
     corpid = resp["corporation_id"]
 
     if corpid == 98719586:
@@ -240,4 +247,4 @@ def callback():
 if __name__ == '__main__':
 
     Session(app)
-    app.run(debug=False)
+    app.run(debug=True)
