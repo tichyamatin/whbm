@@ -75,7 +75,7 @@ def bmfilter(testinput):
     idnode = str(id.node)
 
     net.save_graph('./templates/test.html')
-    #clearfile()
+    clearfile('./templates/test.html')
 
 def bmfilterprivate(testinput):
     #>>>FILTERING INPUT
@@ -124,11 +124,10 @@ def bmfilterprivate(testinput):
     idnode = str(id.node)
 
     net.save_graph('./templates/'+str(session['whbm_session'])+'.html')
-    #clearfile()
+    clearfile('./templates/'+str(session['whbm_session'])+'.html')
 
-def clearfile():
-
-    htmlfile = "./templates/test.html"
+def clearfile(file_path):
+    htmlfile = file_path
 
     f = open(htmlfile, "r")
     filecontent1 = f.read()
@@ -136,17 +135,24 @@ def clearfile():
 
     soup = BeautifulSoup(filecontent1, "html.parser")
     filecontentfixed = str(soup.prettify())
-    print(filecontentfixed)
+
+    filecontentfixed = re.sub(r'\s*<center>\n\s*<h1>\n\s*<\/h1>\n\s*<\/center>', '', filecontentfixed)
+    filecontentfixed = re.sub(r'border:\s1px\ssolid\slightgray', 'border: 0px solid lightgray', filecontentfixed)
+    filecontentfixed = re.sub(r'<\/style>\n\s*<\/head>\n\s*<body>\n\s*<div\sclass\=\"card\"\s*style\=\"width:\s100%\">', ' \n body {background-color: #0C011D;}</style></head><body><div class=\"card\" style=\"border:none\">', filecontentfixed)
+
 
     f = open(htmlfile, "w")
     f.write(filecontentfixed)
     f.close()
 
+    '''
     with open(htmlfile) as f:
         lines = [i for i in f.readlines() if i and i != '\n']
-
+    '''
+    '''
     with open(htmlfile, 'w') as f:
         f.writelines(lines)
+    '''
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'A&*SD^*(A&SD^A*&SD^*A&SD^*'
