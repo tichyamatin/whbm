@@ -17,10 +17,7 @@ with open('./config/whbm.config') as f:
     scope = config['scope']
     state = config['state']
 
-
-
 authredirurl = 'https://login.eveonline.com/oauth/authorize?response_type=' + responsetyp + '&redirect_uri=' + redirecturi + '&client_id=' + clientid + '&scope=' + scope + '&state=' + state
-
 clientsecretpair = base64.b64encode(bytes(clientid + ':' + secretkey, 'ascii'))
 clientsecretpair = str(clientsecretpair, 'utf-8')
 clientsecretpair = 'Basic ' + clientsecretpair
@@ -140,19 +137,9 @@ def clearfile(file_path):
     filecontentfixed = re.sub(r'border:\s1px\ssolid\slightgray', 'border: 0px solid lightgray', filecontentfixed)
     filecontentfixed = re.sub(r'<\/style>\n\s*<\/head>\n\s*<body>\n\s*<div\sclass\=\"card\"\s*style\=\"width:\s100%\">', ' \n body {background-color: #0C011D;}</style></head><body><div class=\"card\" style=\"border:none\">', filecontentfixed)
 
-
     f = open(htmlfile, "w")
     f.write(filecontentfixed)
     f.close()
-
-    '''
-    with open(htmlfile) as f:
-        lines = [i for i in f.readlines() if i and i != '\n']
-    '''
-    '''
-    with open(htmlfile, 'w') as f:
-        f.writelines(lines)
-    '''
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'A&*SD^*(A&SD^A*&SD^*A&SD^*'
